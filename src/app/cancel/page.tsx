@@ -5,7 +5,7 @@ export default function CancelPage() {
     <div className="mx-auto max-w-2xl px-6 py-20 text-center">
       <h1 className="text-3xl font-semibold tracking-tight">Checkout cancelled</h1>
       <p className="mt-3 text-zinc-600 dark:text-zinc-400">
-        Your cart is still saved — head back when you're ready.
+        Your cart is still saved — head back when you&apos;re ready.
       </p>
       <div className="mt-10 flex justify-center gap-3">
         <Link
