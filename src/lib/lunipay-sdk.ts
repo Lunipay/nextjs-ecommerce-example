@@ -49,11 +49,18 @@ export async function createCheckoutSessionWithSdk(args: {
       success_url: args.successUrl,
       cancel_url: args.cancelUrl,
       customer_email: args.customerEmail,
-      line_items: args.lineItems.map((li) => ({
-        name: li.name,
-        quantity: li.quantity,
-        amount_cents: li.amountMinor,
-      })),
+      // The SDK's TypeScript types say `amount_cents` here, but the live
+      // API actually wants `amount` on line items (same quirk noted in
+      // src/lib/lunipay.ts). Cast through `as never` so we can send the
+      // shape the API expects until the SDK types catch up.
+      line_items: args.lineItems.map(
+        (li) =>
+          ({
+            name: li.name,
+            quantity: li.quantity,
+            amount: li.amountMinor,
+          }) as never
+      ),
       metadata: args.metadata,
     },
     args.idempotencyKey ? { idempotencyKey: args.idempotencyKey } : undefined
